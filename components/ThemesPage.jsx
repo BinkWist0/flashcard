@@ -1,20 +1,24 @@
 const React = require("react");
+const Layout = require("./Layout");
 
-function ThemesPage() {
+function ThemesPage({ themes }) {
   return (
-    <div>
+    <Layout>
       <h2>Выбери тему!</h2>
-      <div>
-        <h3>Тема 1</h3>
-        <p>Машины</p>
-        <img
-          style={{ width: "200px" }}
-          src="https://rg.ru/uploads/images/187/07/30/11.jpg"
-          alt="Car"
-        />
-        <button>Выбрать</button>
+      <div className="div">
+        {themes.map((el) => (
+          <div key="one">
+            <h3>{el.them}</h3>
+            <a href={`/themes/${el.id}`}>
+              <img
+                src="https://russian.eurasianet.org/sites/default/files/styles/article/public/2023-02/tms21wrovnpjs5r9it7ucjokjqeuq7ys.jpg?itok=xedAYBgE"
+                alt=""
+              />
+            </a>
+          </div>
+        ))}
       </div>
-    </div>
+    </Layout>
   );
 }
 module.exports = ThemesPage;
