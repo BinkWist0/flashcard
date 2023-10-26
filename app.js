@@ -6,15 +6,18 @@ const ReactDOMServer = require("react-dom/server");
 const ThemesPage = require("./components/ThemesPage");
 const MainPage = require("./components/MainPage");
 const PORT = 3000;
-const { Theme } = require('./db/models');
 
-app.get("/themes",  async (req,res) => {
-const thems=await Theme
+const { Theme } = require("./db/models");
+const path = require('path');
+app.use(express.static(path.join(__dirname, 'public')));
 
-    const reactElement = React.createElement(ThemesPage);
-    const html = ReactDOMServer.renderToStaticMarkup(reactElement);
-    res.send(`<!DOCTYPE html>${html}`);
-})
+app.get("/themes", async (req, res) => {
+  const themes = await Theme.findAll()
+  const reactElement = React.createElement(ThemesPage, {themes});
+  const html = ReactDOMServer.renderToStaticMarkup(reactElement);
+  res.send(`<!DOCTYPE html>${html}`);
+});
+
 
 
 app.get("/", (req,res) => {
