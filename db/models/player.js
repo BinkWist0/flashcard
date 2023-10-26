@@ -19,6 +19,7 @@ module.exports = (sequelize, DataTypes) => {
       },
       scores: {
         type: DataTypes.INTEGER,
+        defaultValue: 0,
       },
     },
     {
