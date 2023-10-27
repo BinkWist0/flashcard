@@ -19,6 +19,7 @@ const { Question } = require('./db/models');
 const { Player } = require('./db/models');
 const path = require('path');
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.json());
 app.use(ssr);
 
 // app.get('/themes', async (req, res) => {
@@ -30,18 +31,36 @@ app.use(ssr);
 //   res.send(`<!DOCTYPE html>${html}`);
 // });
 
-app.get(`/themes/:questionid`, async (req, res) => {
-  const { questionid } = req.params;
-  // console.log(questionid, '<<<<<<');
-  const question = await Question.findOne({ where: { id: questionid } });
-  // console.log(question.quest);
+app.get(`/themes/:questionid/`, async (req, res) => {
+  const { themid, questionid } = req.params;
 
-  // const reactElement = React.createElement(QuestionPage, { question });
-  // const html = ReactDOMServer.renderToStaticMarkup(reactElement);
-  // res.send(`<!DOCTYPE html>${html}`);
-
+  const question = await Question.findAll({ where: { theme_id: questionid } });
+  console.log(question);
   const html = res.renderComponent(QuestionPage, { question });
   res.send(html);
+});
+
+// app.get(`/themes/:themesId/questions/:qId`, async (req, res) => {});
+
+app.post(`/themes/:themesId/questions/:qId`, async (req, res) => {
+  // console.log(req.params);
+  const { themesId, qId } = req.params;
+  const { answer } = req.body;
+  try {
+    const question = await Question.findOne({ where: { id: qId } });
+    const trueAnswer = question.dataValues.answer;
+    console.log(answer, '--------------');
+    if (answer === trueAnswer) {
+      console.log(123);
+      return res.json({ success: true });
+    } else {
+      return res.json({
+        success: false,
+      });
+    }
+  } catch ({ message }) {
+    res.json({ message });
+  }
 });
 
 app.get('/', (req, res) => {
