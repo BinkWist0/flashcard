@@ -7,31 +7,36 @@ module.exports = {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
       },
       quest: {
-        type: Sequelize.TEXT
+        type: Sequelize.TEXT,
       },
       answer: {
-        type: Sequelize.TEXT
+        type: Sequelize.TEXT,
       },
       img: {
-        type: Sequelize.TEXT
+        type: Sequelize.TEXT,
       },
       theme_id: {
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
+        references: {
+          model: 'Themes',
+          key: 'id',
+        },
+        onDelete: 'cascade',
       },
       createdAt: {
         allowNull: false,
-        type: Sequelize.DATE
+        type: Sequelize.DATE,
       },
       updatedAt: {
         allowNull: false,
-        type: Sequelize.DATE
-      }
+        type: Sequelize.DATE,
+      },
     });
   },
   async down(queryInterface, Sequelize) {
     await queryInterface.dropTable('Questions');
-  }
+  },
 };
