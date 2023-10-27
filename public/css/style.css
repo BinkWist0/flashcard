@@ -16,3 +16,10 @@ h3 {
 img {
   width: 300px;
 }
+
+.headStyle {
+  display: flex;
+  gap: 10px;
+  list-style: none;
+  padding: 10px;
+}
