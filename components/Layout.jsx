@@ -1,4 +1,7 @@
 const React = require("react");
+const Header=require('./Header')
+const Footer=require('./Footer')
+
 
 function Layout({ children }) {
   return (
@@ -7,7 +10,9 @@ function Layout({ children }) {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="stylesheet" href="./css/style.css" />
       </head>
+      <Header/>
       {children}
+      <Footer/>
     </html>
   );
 }
