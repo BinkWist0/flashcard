@@ -51,14 +51,30 @@ function QuestionPage({ question }) {
   return (
     <Layout>
       Вопросы
-      <div key={question.id}>{question.quest}</div>
-      <img src={question.img} />
-      <form>
-        <label>
-          <input type="text" name="namePlayer" />
-        </label>
-        <button type="submit">Ответить</button>
-      </form>
+      <div className='questionContainer' data-themeid={question[0].theme_id}>
+        {question.map((el) => (
+          <div className='idquest' data-questionid={el.id}>
+            <div >{el.quest}</div>
+            <img src={el.img} />
+            <form
+              className="js-add-form"
+              action={`/themes/${el.theme_id}/questions/${el.id}`}
+              method="POST"
+              style={{
+                display: 'flex',
+                flexDirection: 'column',
+                gap: '10px',
+                width: '200px',
+              }}
+            >
+              <input type="text" name="otvet" />
+              <button type="submit">ответ</button>
+              <div  className='js-facts-container'></div>
+            </form>
+           
+          </div>
+        ))}
+      </div>
     </Layout>
   );
 }
