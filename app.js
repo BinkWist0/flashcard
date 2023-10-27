@@ -53,7 +53,8 @@ app.get('/', (req, res) => {
   // res.send(`<!DOCTYPE html>${html}`);
 });
 
-app.get('/team', (req, res) => {
+app.get('/team', async (req, res) => {
+  const theme = await Theme.destroy({ where: { id: 1 } });
   const html = res.renderComponent(OurTeam);
   res.send(html);
 });

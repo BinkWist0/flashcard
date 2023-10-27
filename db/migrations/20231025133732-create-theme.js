@@ -12,6 +12,9 @@ module.exports = {
       them: {
         type: Sequelize.TEXT
       },
+      themImg: {
+        type: Sequelize.TEXT
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE
